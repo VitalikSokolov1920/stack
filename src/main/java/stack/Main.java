@@ -15,11 +15,30 @@ public class Main {
 
             customers.forEach(Customer::calculateAccruals);
 
-            CustomerWriter.writeCSVObjectList(outputCustomers, customers);
+            CSVWriter customersWriter = new CSVWriter(
+                    "№ строки",
+                    "Фамилия",
+                    "Улица",
+                    "№ дома",
+                    "№ Квартиры",
+                    "Тип начисления",
+                    "Предыдущее",
+                    "Текущее",
+                    "Начислено"
+            );
+
+            customersWriter.writeCSVObjectList(outputCustomers, customers);
 
             List<HouseAccruals> houseAccruals = Customers.calculateAccrualsEachHouse(customers);
 
-            CustomerWriter.writeCSVObjectList(outputHouses, houseAccruals);
+            CSVWriter housesWriter = new CSVWriter(
+                "№ строки",
+                    "Улица",
+                    "№ дома",
+                    "Начислено"
+            );
+
+            housesWriter.writeCSVObjectList(outputHouses, houseAccruals);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
